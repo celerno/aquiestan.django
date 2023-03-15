@@ -1,0 +1,9 @@
+{% extends "bootstrap5.html" %}
+{% block content %}
+<form action="/admin/hallazgos/bulk_upload/" method="post">
+    <input type="file" name="csv_file" />
+    <input type="submit" value="Upload" />
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+</form>
+
+{% endblock content %}

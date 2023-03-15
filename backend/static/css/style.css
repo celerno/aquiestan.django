@@ -1,0 +1,116 @@
+:root {
+    --bs-font-sans-serif: 'Atkinson Hyperlegible', sans-serif;
+}
+
+.hallazgos {
+    display: flex;
+    flex-direction: row;
+    background-color: #C8C1B0;
+    height: 95vh;
+    width: 100vw;
+    padding: 10px;
+}
+.ae-marker{
+    position:absolute;
+
+}
+.hallazgos .ae-left {
+    flex: .3;
+    display: flex;
+    flex-direction: column;
+}
+
+.hallazgos .ae-middle {
+    display: flex;
+    flex-direction: column;
+}
+
+.ae-middle .ae-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.ae-middle .ae-fields>div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.hallazgos option,
+.hallazgos label {
+    font-size: small;
+}
+
+.hallazgos .ae-right {
+    flex: .7;
+    display: flex;
+    flex-direction: column;
+}
+
+div.hallazgos>div[class*="ae-"]>div {
+    margin-bottom: 1em;
+}
+
+.ae-fields.map-container {
+    display: flex;
+}
+
+.ae-control-map-legend {
+    display: flex;
+    display: none;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.ae-control-map {
+    width: 100%;
+    height: 40vh;
+    padding: 2em;
+    padding-bottom: 0;
+    position: relative;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    flex: 1;
+}
+
+.ae-left>div:not(:first-child) {
+    padding: 10px;
+    top: 257px;
+    background: var(--unnamed-color-e4e0d7) 0% 0% no-repeat padding-box;
+    background: #E4E0D7 0% 0% no-repeat padding-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    border-radius: 10px;
+
+}
+
+.ae-filter {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.ae-filter>div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.ae-filter>div>div:first-child {
+    margin-right: 10px;
+}
+    
+.ae-counter {
+    font-style: italic;
+    font-size: small;
+}
+
+h6 {
+    font-weight: bold;
+}

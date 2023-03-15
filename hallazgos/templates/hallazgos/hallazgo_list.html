@@ -1,0 +1,163 @@
+{% extends "bootstrap5.html" %}
+{% load month_tags %}
+{% load static %}
+{% block base_js %}
+<script src="{% static 'js/geoToPixel.js' %}"></script>
+{% endblock base_js %}
+{% block content %}
+
+    <div class="hallazgos">
+        <div class="ae-left">
+            <div>
+                <div>
+                    <h6>Municipio</h6>
+                </div>
+                <div>
+                    <select class="form-select">
+                        <option value="0" default>
+                            Todos
+                        </option>
+                        {% for municipio in municipios %}
+                            <option>
+                                {{ municipio }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h6>Modalidad del hallazgo</h6>
+                </div>
+                <div class="ae-filter">
+                    {% for m in modalidades %}
+                        <div>
+                            <div class="form-check">
+                                <label class="form-check-label" for="id_check_{{ m }}_{{ forloop.counter }}">{{ m }}</label>
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       name="modalidades"
+                                       value="{{ m }}"
+                                       id="id_check_{{ m }}_{{ forloop.counter }}"/>
+                            </div>
+                            <div class="form">
+                                <span class="ae-counter">00</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h6>Tipo de hallazgo</h6>
+                </div>
+                <div class="ae-filter">
+                    {% for tipo in tipos %}
+                        <div>
+                            <div class="form-check">
+                                <label class="form-check-label"
+                                       for="id_check_{{ tipo }}{{ forloop.counter }}">{{ tipo }}</label>
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       name="tipos"
+                                       value="{{ tipo }}"
+                                       id="id_check_{{ tipo }}{{ forloop.counter }}"/>
+                            </div>
+                            <div class="form">
+                                <span class="ae-counter">00</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="ae-middle">
+            <div class="ae-fields">
+                <div>
+                    <div>
+                        <div>
+                            <h6>Colectivo que realizó la búsqueda</h6>
+                        </div>
+                        <div>
+                            <select class="form-select">
+                                <option value="0" default>
+                                    Todos
+                                </option>
+                                {% for colectivo in colectivos %}
+                                    <option>
+                                        {{ colectivo }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h6>Mes</h6>
+                        </div>
+                        <div>
+                            <select class="form-select">
+                                <option value="0" default>
+                                    Todos
+                                </option>
+                                {% for mes in meses %}
+                                    <option value="{{ mes }}">
+                                        {{ mes | month_name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h6>Año</h6>
+                        </div>
+                        <div>
+                            <select class="form-select">
+                                <option value="0" default>
+                                    Todos
+                                </option>
+                                {% for i in anos %}
+                                    <option value="{{ i }}">
+                                        {{ i }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ae-control-map">
+                <div id="map">
+                    <picture>
+                        <source srcset="{% static 'assets/map-sonora.svg' %}" />
+                        <img height="auto" width="100%" src="{% static 'assets/map-sonora.svg' %}" alt="Mapa de Sonora" />
+                    </picture>
+                    {% for lat,lng in markers %}
+                    <div class="ae-marker" style="top: {{ lng }}%; left:{{ lat }}%;">
+                        .
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="ae-control-map-legend">
+                    <div>
+                        <span>Registros de hallazgos</span>
+                    </div>
+                    <div>
+                        <span>1 a 4</span>
+                        <circle cx="10" cy="10" r="10" fill="#FF0000" />
+                    </div>
+                    <div>
+                        <span>5 a 8</span>
+                        <circle cx="20" cy="20" r="20" fill="#FF0000" />
+                    </div>
+                    <div>
+                        <span>13 +</span>
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+        <div class="ae-right"></div>
+    </div>
+{% endblock content %}
