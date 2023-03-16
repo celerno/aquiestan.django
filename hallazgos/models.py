@@ -3,9 +3,8 @@ Returns:
     _type_: _description_
 """
 from django.utils import timezone
-
+ 
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator, MaxValueValidator, FileExtensionValidator
 
 def lon_convert(lon: float):
@@ -17,11 +16,6 @@ def lat_convert(lat: float):
     lat_start = 32.509600774356244
     lat_end = 26.410299210278374
     return (lat / (lat_start-lat_end)) * 100
-
-class HallazgoFile(models.Model):
-    csv_file = models.FileField(upload_to='static/hallazgos_csv',validators=[FileExtensionValidator(['csv'])] )
-    uploaded_at = models.DateField(default=timezone.now())
-    uploaded_by = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
 # Create your models here.
 class Colectivo(models.Model):
@@ -73,6 +67,11 @@ class Hallazgo(models.Model):
 
 class HallazgoMedia(models.Model):
     hallazgo = models.ForeignKey(Hallazgo, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='static', null=True, blank=True)
+    imagen = models.ImageField(upload_to='hallazgo/{hallazgo.source_id}', null=True, blank=True)
     def __str__(self):
         return '{self.hallazgo.fecha}/{self.hallazgo.source_id}/{self.imagen.name}'.format(self=self)
+
+class HallazgoCSVFile(models.Model):
+    csv_file = models.FileField(upload_to="hallazgos_csv",validators=[FileExtensionValidator(['csv'])] )
+    uploaded_at = models.DateField(default=timezone.now)
+    uploaded_by = models.ForeignKey('auth.User', on_delete=models.CASCADE)

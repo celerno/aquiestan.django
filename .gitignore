@@ -5,6 +5,7 @@ db.sqlite3
 
 # Django
 /staticfiles_collected/
+*.log
 
 # Divio
 .divio

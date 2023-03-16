@@ -230,3 +230,20 @@ DJANGOCMS_GOOGLEMAP_API_KEY = 'AIzaSyBMNYIMXh8pN508HSMPfPVrGEO5l39CdrQ'
 DJANGOCMS_GOOGLEMAP_TEMPLATES = [
     ('default', 'Default'),
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'aquiestan.debug.log',
+        },
+    },
+    'loggers': {
+        'aquiestan': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    },
+}
