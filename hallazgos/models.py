@@ -3,9 +3,21 @@ Returns:
     _type_: _description_
 """
 from django.utils import timezone
- 
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, FileExtensionValidator
+import logging
+from datetime import datetime
+logger = logging.getLogger("aquiestan")
+
+def colectivo_exist_or_create(nombre: str):
+        colectivo = Colectivo.objects.filter(nombre=nombre)
+        if colectivo:
+            return colectivo[0]
+        else:
+            logger.info('Creando colectivo: %s', nombre)
+            colectivo = Colectivo(nombre=nombre, fecha=timezone.now(), slug=nombre.replace(' ', '-'))
+            colectivo.save()
+            return colectivo
 
 def lon_convert(lon: float):
         lon_start= -115.05720122875945;
@@ -27,6 +39,7 @@ class Colectivo(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     fecha = models.DateField()
     logo = models.ImageField(upload_to='static', null=True, blank=True)
+    
     def __str__(self):
         return '{self.nombre}'.format(self=self)
 
@@ -64,6 +77,27 @@ class Hallazgo(models.Model):
     contiene_imagenes = models.BooleanField(default=False, blank=True)
     def __str__(self):
         return '{self.fecha}/{self.source_id}/'.format(self=self)
+
+def parse_date(date_string:str):
+    """
+    Parse a date string in any of the following formats:
+    1. 01/01/2018
+    2. 01-01-2018
+    3. 01 January 2018
+    4. 01 de Enero 2018
+    5. 01 de Enero del 2018
+    6. Jan 01 2018
+    7. Jan 01 18
+    If the date string cannot be parsed, return 1900-01-01
+    """
+    formats = ['%d %B, %Y','%d/%m/%Y', '%d-%m-%Y', '%d %B %Y', '%d de %B %Y', '%d de %B del %Y', '%b %d %Y', '%b %d %y']
+    for fmt in formats:
+        try:
+            dt = datetime.strptime(date_string.strip().strip('"'), fmt)
+            return dt.date()
+        except ValueError:
+            pass
+    return datetime(1900,1,1)
 
 class HallazgoMedia(models.Model):
     hallazgo = models.ForeignKey(Hallazgo, on_delete=models.CASCADE)
