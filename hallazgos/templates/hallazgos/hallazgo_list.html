@@ -2,10 +2,9 @@
 {% load month_tags %}
 {% load static %}
 {% block base_js %}
-<script src="{% static 'js/geoToPixel.js' %}"></script>
+    <script src="{% static 'js/geoToPixel.js' %}"></script>
 {% endblock base_js %}
 {% block content %}
-
     <div class="hallazgos">
         <div class="ae-left">
             <div>
@@ -131,18 +130,15 @@
                 <div id="map">
                     <picture>
                         <source srcset="{% static 'assets/map-sonora.svg' %}" />
-                        <img height="auto" width="100%" src={% static 'assets/map-sonora.svg' %} alt="Mapa de Sonora" />
+                        <img height="auto"
+                             width="100%"
+                             src="{% static 'assets/map-sonora.svg' %}"
+                             alt="Mapa de Sonora"/>
                     </picture>
-                    <script>
-                        latlng = [];
-                    </script>
+                    <script>latlng = [];</script>
                     {% for lat,lng in markers %}
-                    <script>
-                        latlng.push([ {{ lat }} , {{ lng }}]);
-                    </script>
-                    <div class="ae-marker" id="ae-marker-{{foorloop.counter}}">
-                        .
-                    </div>
+                        <script>latlng.push([ {{ lat }} , {{ lng }}]);</script>
+                        <div class="ae-marker" id="ae-marker-{{ foorloop.counter }}">.</div>
                     {% endfor %}
                 </div>
                 <div class="ae-control-map-legend">
@@ -161,9 +157,46 @@
                         <span>13 +</span>
                     </div>
                 </div>
-                    
             </div>
         </div>
-        <div class="ae-right"></div>
+        <div class="ae-right">
+            <div class="ae-fields">
+                <div>
+                    <div>
+                        <h4>
+                            <span class="ae-counter">{{ get_queryset | length }}</span>
+                        </h4>
+                    </div>
+                    <div>
+                        <h6>Hallazgos</h6>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <h4>
+                            <span class="ae-counter">{{ colectivos | length }}</span>
+                        </h4>
+                    </div>
+                    <div>
+                        <h6>colectivos colaboran</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="ae-municipios-list">
+                <div>
+                    <h6>Municipios de Sonora con más registros de hallazgos</h6>
+                </div>
+                {% for municipio in municipios %}
+                    <div>
+                        <div>
+                            <span>{{ municipio }}</span>
+                        </div>
+                        <div>
+                            <span>00</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock content %}

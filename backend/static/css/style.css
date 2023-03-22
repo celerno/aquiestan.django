@@ -34,6 +34,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 
 .hallazgos option,
@@ -42,11 +43,47 @@
 }
 
 .hallazgos .ae-right {
-    flex: .7;
     display: flex;
     flex-direction: column;
 }
+.hallazgos .ae-right .ae-fields{
+    display: flex;
+    flex-direction: row;
+}
+.hallazgos .ae-right .ae-fields > div {
+    display: flex;
+    flex-direction: row;
+        margin: .2em;
+    border-radius: 10px;
+    background-color: #FED13899;
+    padding: 10px;
+        align-items: center;
+}
+.hallazgos .ae-right .ae-fields > div >div{
+    margin: 5px;
+}
+.hallazgos .ae-right .ae-fields > div:last-child {
+    background-color: #ADA188;
+}
 
+.ae-municipios-list{
+    display:flex;
+    flex-direction: column;
+    background-color: #5B5B5B;
+    border-radius: 10px;
+    color: white;
+}
+.ae-municipios-list > div:first-child{
+    padding: 10px;
+}
+.ae-municipios-list >div{
+    
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: .2em;
+    padding: 0 10px;
+}
 div.hallazgos>div[class*="ae-"]>div {
     margin-bottom: 1em;
 }
@@ -108,7 +145,6 @@ div.hallazgos>div[class*="ae-"]>div {
     
 .ae-counter {
     font-style: italic;
-    font-size: small;
 }
 
 h6 {
