@@ -13,7 +13,7 @@
                     <h6>Municipio</h6>
                 </div>
                 <div>
-                    <select class="form-select">
+                    <select class="form-select" title="municipios">
                         <option value="0" default>
                             Todos
                         </option>
@@ -41,7 +41,7 @@
                                        id="id_check_{{ m }}_{{ forloop.counter }}"/>
                             </div>
                             <div class="form">
-                                <span class="ae-counter">00</span>
+                                <span class="ae-counter">{{ 00 }}</span>
                             </div>
                         </div>
                     {% endfor %}
@@ -79,7 +79,7 @@
                             <h6>Colectivo que realizó la búsqueda</h6>
                         </div>
                         <div>
-                            <select class="form-select">
+                            <select class="form-select" title="colectivos">
                                 <option value="0" default>
                                     Todos
                                 </option>
@@ -96,7 +96,7 @@
                             <h6>Mes</h6>
                         </div>
                         <div>
-                            <select class="form-select">
+                            <select class="form-select" title="meses">
                                 <option value="0" default>
                                     Todos
                                 </option>
@@ -113,7 +113,7 @@
                             <h6>Año</h6>
                         </div>
                         <div>
-                            <select class="form-select">
+                            <select class="form-select" title="años">
                                 <option value="0" default>
                                     Todos
                                 </option>
@@ -131,10 +131,16 @@
                 <div id="map">
                     <picture>
                         <source srcset="{% static 'assets/map-sonora.svg' %}" />
-                        <img height="auto" width="100%" src="{% static 'assets/map-sonora.svg' %}" alt="Mapa de Sonora" />
+                        <img height="auto" width="100%" src={% static 'assets/map-sonora.svg' %} alt="Mapa de Sonora" />
                     </picture>
+                    <script>
+                        latlng = [];
+                    </script>
                     {% for lat,lng in markers %}
-                    <div class="ae-marker" style="top: {{ lng }}%; left:{{ lat }}%;">
+                    <script>
+                        latlng.push([ {{ lat }} , {{ lng }}]);
+                    </script>
+                    <div class="ae-marker" id="ae-marker-{{foorloop.counter}}">
                         .
                     </div>
                     {% endfor %}

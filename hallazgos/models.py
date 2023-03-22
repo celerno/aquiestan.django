@@ -4,20 +4,12 @@ Returns:
 """
 from django.utils import timezone
 from django.db import models
+from django.db.models.aggregates import Aggregate
 from django.core.validators import MinValueValidator, MaxValueValidator, FileExtensionValidator
 import logging
 from datetime import datetime
 logger = logging.getLogger("aquiestan")
 
-def colectivo_exist_or_create(nombre: str):
-        colectivo = Colectivo.objects.filter(nombre=nombre)
-        if colectivo:
-            return colectivo[0]
-        else:
-            logger.info('Creando colectivo: %s', nombre)
-            colectivo = Colectivo(nombre=nombre, fecha=timezone.now(), slug=nombre.replace(' ', '-'))
-            colectivo.save()
-            return colectivo
 
 def lon_convert(lon: float):
         lon_start= -115.05720122875945;
@@ -42,6 +34,16 @@ class Colectivo(models.Model):
     
     def __str__(self):
         return '{self.nombre}'.format(self=self)
+    def exist_or_create(nombre: str):
+        colectivo = Colectivo.objects.filter(nombre=nombre)
+        if colectivo:
+            return colectivo[0]
+        else:
+            logger.info('Creando colectivo: %s', nombre)
+            colectivo = Colectivo(nombre=nombre, fecha=timezone.now(), slug=nombre.replace(' ', '-'))
+            colectivo.save()
+            return colectivo
+
 
 class ColectivoMedia(models.Model):
     colectivo = models.ForeignKey(Colectivo, on_delete=models.CASCADE)
@@ -49,8 +51,48 @@ class ColectivoMedia(models.Model):
     def __str__(self):
         return '{self.colectivo.slug}/{self.imagen.name}'.format(self=self)
 
+class Modalidad(models.Model):
+    nombre = models.CharField(max_length=100, unique=True)
+    class Meta:
+        ordering = ['nombre']
+    def AllWithCount():
+        return set(Hallazgo.objects.values_list('modalidad__nombre', flat= True))
+    def __str__(self):
+        return '{self.nombre}'.format(self=self)
+    def exist_or_create(nombre: str):
+        if(nombre == ''):
+            return None
+        modalidad = Modalidad.objects.filter(nombre=nombre)
+        if modalidad:
+            return modalidad[0]
+        else:
+            logger.info('Creando modalidad: %s', nombre)
+            modalidad = Modalidad(nombre=nombre)
+            modalidad.save()
+            return modalidad
 
-    
+
+class Municipio(models.Model):
+    nombre = models.CharField(max_length=250, unique=True)
+    def AllWithCount():
+        return set(Hallazgo.objects.values_list('municipio__nombre', flat= True))
+    class Meta:
+        ordering = ['nombre']
+    def __str__(self):
+        return '{self.nombre}'.format(self=self) 
+    def exist_or_create(nombre: str):
+        if nombre == '':
+            return None
+        municipio = Municipio.objects.filter(nombre=nombre)
+        if municipio:
+            return municipio[0]
+        else:
+            logger.info('Creando municipio: %s', nombre)
+            municipio = Municipio(nombre=nombre)
+            municipio.save()
+            return municipio
+
+
 class Hallazgo(models.Model):
     """_summary_
 
@@ -60,23 +102,34 @@ class Hallazgo(models.Model):
     Returns:
         _type_: _description_
     """
-    source_id = models.IntegerField(blank=True)
+    source_id = models.IntegerField(blank=False)
     colectivo = models.ForeignKey(Colectivo, on_delete=models.CASCADE)
-    fecha = models.DateField()
+    fecha = models.DateField(blank=True)
+    def all_dates_anios():
+        return set(Hallazgo.objects.values_list('fecha__year', flat= True))
+    def all_dates_meses():
+        return set(Hallazgo.objects.values_list('fecha__month', flat= True))
+    
+    
     estado = models.CharField(max_length=100, default='Sonora', blank=True)
-    municipio = models.CharField(max_length=100, blank=True)
+    municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE, blank=True, null=True, default=None)
     localidad = models.CharField(max_length=200, blank=True)
     geo_latitud = models.FloatField(validators=[MinValueValidator(-90), MaxValueValidator(90)], default=0, blank=True)
     geo_longitud = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)], default=0, blank=True)
     tipo = models.CharField(max_length=100, blank=True)
-    modalidad = models.CharField(max_length=100, blank=True)
+    modalidad = models.ForeignKey(Modalidad, on_delete=models.CASCADE, blank=True, null=True, default=None)
     observaciones = models.TextField(blank=True)
     informacion_adicional = models.TextField( blank=True)
-    fuente = models.CharField(max_length=100, blank=True)
+    fuente = models.CharField(max_length=500, blank=True)
     link = models.CharField(max_length=500, blank=True, )
     contiene_imagenes = models.BooleanField(default=False, blank=True)
+    notas_internas = models.TextField(blank=True)
+    class Meta:
+        ordering = ['-source_id']
+        unique_together = ('source_id', 'colectivo')
+
     def __str__(self):
-        return '{self.fecha}/{self.source_id}/'.format(self=self)
+        return '{self.colectivo.nombre} - {self.source_id}'.format(self=self)
 
 def parse_date(date_string:str):
     """
