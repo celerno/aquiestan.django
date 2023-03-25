@@ -31,7 +31,6 @@ INSTALLED_APPS = [
 
     # optional, but used in most projects
     'djangocms_admin_style',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +49,14 @@ INSTALLED_APPS = [
     # Django Filer - optional, but used in most projects
     'filer',
     'easy_thumbnails',
+    # django cms blog
+    'aldryn_apphooks_config',
+    'parler',
+    'taggit',
+    'taggit_autosuggest',
+    'meta',
+    'sortedm2m',
+    'djangocms_blog',
 
     # the default CKEditor - optional, but used in most projects
     'djangocms_text_ckeditor',
@@ -133,8 +140,21 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters',
 )
-
-
+META_SITE_PROTOCOL = 'https'  # set 'http' for non ssl enabled websites
+META_USE_SITES = True
+META_USE_OG_PROPERTIES=True
+META_USE_TWITTER_PROPERTIES=True
+META_USE_GOOGLEPLUS_PROPERTIES=True # django-meta 1.x+
+META_USE_SCHEMAORG_PROPERTIES=True  # django-meta 2.x+
+PARLER_LANGUAGES = {
+    1: (
+        {'code': 'es',},
+        {'code': 'en',},
+    ),
+    'default': {
+        'fallbacks': ['es', 'en'],
+    }
+}
 CMS_TEMPLATES = [
     # a minimal template to get started with
     ('minimal.html', 'Minimal template'),

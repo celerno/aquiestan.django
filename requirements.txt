@@ -56,6 +56,7 @@ django-cms==3.11.0
     #   djangocms-style
     #   djangocms-text-ckeditor
     #   djangocms-video
+    #   djangocms-blog
 django-entangled==0.4
     # via djangocms-frontend
 django-filer==2.2.3
