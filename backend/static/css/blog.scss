@@ -1,18 +1,51 @@
+@import 'style.scss';
 .plugin-blog{
     .blog-latest-entries{
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+
         article{
+            &:first-child{
+                margin-right: 1vw;
+            }
+            margin-top: 2vh;
+            /* cajita gris */
             flex: 50%;
-            max-width: 33vw;
+            max-width: 33%;
             max-height: 15vh;
             overflow: hidden;
+            background-color: #5b5b5bf0;
+            border-radius: 2vw;
+            padding: 1vh 1vw;
+            header{
+                h3{
+                    font-size: medium;
+                }
+                h4{
+                    font-size: small;
+                }
+            }
         }
         article:nth-child(3n){
             flex: 100%;
-            max-width: 50vw;
+            max-width: 66%;
             max-height: 30vh;
+            background-color: black;
+            color: $color-amarillo-light;
+
+            header{
+                h3{
+                    a{
+                        color: $color-amarillo-light;
+                    
+                    }
+                    font-size: large;
+                }
+                h4{
+                    font-size: medium;
+                }
+            }
         }
     }
 }
