@@ -1,4 +1,17 @@
+$font-family-serif: 'Atkinson Hyperlegible', sans-serif;
+$font-family-monospace: 'Atkinson Hyperlegible', sans-serif;
+$color-black: #000000;
+$color-dark: #B79D64; /*forrest green*/
+$color-dark-a: #bd9e5a7e; /*forrest green*/
+
+$color-medium: #E4E0D7; /* goldenrod*/
+$color-light: #D7F53B; /* Amarillo-naranja */
+$color-text-bg: #F8F7EE;
+$color-item: #EFFB9F;
+
 :root {
+    --font-family-sans-serif: 'Atkinson Hyperlegible', sans-serif;
+    --font-family-sans-monospace: $font-family-serif;
     --bs-font-sans-serif: 'Atkinson Hyperlegible', sans-serif;
 }
 
@@ -149,4 +162,28 @@ div.hallazgos>div[class*="ae-"]>div {
 
 h6 {
     font-weight: bold;
+}
+
+/* general.scss */
+html, body {
+    font-family: var(--font-family-sans-serif);
+}
+body {
+    padding-top: 3.5rem;
+    background-color: $color-dark;
+    color: $color-black;
+}
+main {
+    padding: 2rem 0;
+}
+img {
+    max-width: 100%;
+}
+a {
+    color: $color-medium;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+        color: $color-dark;
+    }
 }

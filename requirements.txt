@@ -199,6 +199,8 @@ wheel==0.37.1
     # via pip-tools
 whitenoise==5.2.0
     # via -r requirements.in
+django_compressor
+django-libsass
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
