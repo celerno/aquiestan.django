@@ -201,3 +201,16 @@ a {
         }
     }
 }
+#map{
+    height: 50vh;
+}
+#floating-panel {
+    position: absolute;
+    top: 85px;
+    right: 40px;
+    z-index: 5;
+    background-color: transparent;
+    padding: 5px;
+    border: none;
+    text-align: center;
+}

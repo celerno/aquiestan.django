@@ -128,6 +128,9 @@
                 </div>
             </div>
             <div class="ae-control-map">
+                <div id="floating-panel">
+                    <input id="hide-markers" type="button" value="&#x1f4cd;" />
+                </div>
                 <div id="map"></div>
                 
                 <div class="ae-control-map-legend">
@@ -189,36 +192,64 @@
         </div>
     </div>
     <script>
+        
         window.initMap = function() {
             let sonora_center = new google.maps.LatLng(29.3955122,-111.7386465);
-            let map = new google.maps.Map(document.getElementById('map'), {
-                center: sonora_center,
-                zoom: 6,
-                mapTypeId: 'terrain',
-                radius: 20, 
-                gradient: 'indigo'
-            });
-            var infoWindow;
-            var marker;
+        let map = new google.maps.Map(document.getElementById('map'), {
+            center: sonora_center,
+            zoom: 6,
+            mapTypeId: 'terrain',
+            radius: 20, 
+            gradient: 'indigo'
+        });
+        var hidden = false;
+        var markers =  [];
+        function addInfoWindow(map, marker, message) {
 
+            var infoWindow = new google.maps.InfoWindow({
+                content: message
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.open(map, marker);
+            });
+            markers.push(marker);
+        }
+        // Sets the map on all markers in the array.
+        function setMapOnAll(map) {
+            for (let i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+            }
+        }
+        
+        // Removes the markers from the map, but keeps them in the array.
+        function hideMarkers() {
+            if(hidden){
+                setMapOnAll(map);
+                hidden = false;
+            }else{
+                setMapOnAll(null);
+                hidden = true;
+            }
+        }
+        document
+        .getElementById("hide-markers")
+        .addEventListener("click", hideMarkers);
             let latlng = [];
-            {% for lat,lng, fecha, observaciones, info in markers %}
+            {% for lat,lng, source_id, fecha, observaciones in markers %}
                 {% if lat != '0' and lng != '0' %}
                     latlng.push(new google.maps.LatLng({{ lat }},{{ lng }}));
-                    
+                    {
+                        addInfoWindow(map,new google.maps.Marker(
+                            {
+                                position: new google.maps.LatLng({{ lat }},{{ lng }}), 
+                                map: map, 
+                                title: '{{ fecha }} - {{ source_id }}'
+                            }), '<div class="marker-info"><strong>Hallazgo ID: {{ source_id }} - {{ fecha }}</strong><p>{{ observaciones }}</p></div>');
+                    }
                 {% endif %}
             {% endfor %}
-                /*infoWindow = new google.maps.InfoWindow({content:'<p>{{observaciones}}</p>'});
-                    marker = new google.maps.Marker(
-                        {
-                            position: new google.maps.LatLng({{ lat }},{{ lng }}), 
-                            map: map, 
-                            title: {{fecha}}
-                        });
-                    marker.addListener("click", () => { infoWindow.open({anchor:marker, map: map})});*/
-            
-            
-            var heatmap = new google.maps.visualization.HeatmapLayer({
+           var heatmap = new google.maps.visualization.HeatmapLayer({
                 data: latlng
             });
             heatmap.setMap(map);
