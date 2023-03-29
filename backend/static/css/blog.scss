@@ -5,27 +5,55 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-
+        max-width: 50vw;
         article{
+            footer, .blog-visual, .blog-lead{
+                display: none;
+            }
             &:first-child{
                 margin-right: 1vw;
             }
+            opacity: .8;
             margin-top: 2vh;
             /* cajita gris */
             flex: 50%;
-            max-width: 33vw;
+            max-width: 24vw;
             max-height: 15vh;
             overflow: hidden;
             background-color: #5b5b5bf0;
             border-radius: 2vw;
-            padding: 1em 1em;
+            padding: 2em;
             header{
+                ul.post-detail{
+                    li{
+                        &:last-child{
+                    
+                            display: none;
+                        }
+                        list-style: none;
+                        color: $color-text-white;
+                        a{
+                         display: inline-block;
+                         text-transform: capitalize;
+                         text-decoration: none;
+                        }
+                    }
+                    
+                }
                 h3{
                     font-size: x-large;
                     font-weight: normal;
-                    a{text-decoration: none;}
+                    a{
+                        display: inline-block;
+                        &::first-letter{
+                            text-transform: uppercase;
+                        }
+                        text-decoration: none;
+                    }
+                  
                 }
                 h4{
+                    display: none;
                     font-size: large;
                     font-weight: normal;
                 }
@@ -33,15 +61,18 @@
         }
         article:nth-child(3n){
             flex: 100%;
-            max-width: 67vw;
+            max-width: 50vw;
             max-height: 30vh;
             background-color: black;
-            color: $color-amarillo-light;
+            color: $color-amarillo;
             border-radius: 3vw;
+            padding: 2.5em 2em 3.5em 2em;
+
             header{
                 h3{
+               
                     a{
-                        color: $color-amarillo-light;
+                        color: $color-amarillo;
                         text-decoration: none;
                     
                     }
@@ -50,6 +81,7 @@
                     padding-top: 1vh;
                 }
                 h4{
+                    display: initial;
                     font-size: x-large;
                     font-weight: normal;
                 }

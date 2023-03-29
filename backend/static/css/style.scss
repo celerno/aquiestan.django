@@ -3,11 +3,11 @@ $font-family-monospace: 'Atkinson Hyperlegible', sans-serif;
 $color-black: #000000;
 $color-dark: #C8C1B0; /*forrest green*/
 $color-dark-a: #bd9e5a7e; /*forrest green*/
-$color-amarillo-light: #FED138;
-$color-medium: #E4E0D7; /* goldenrod*/
+$color-amarillo: #FED138;
+$color-amarillo-light: #EFFB9F;
+$color-text-white: #E4E0D7; /* goldenrod*/
 $color-light: #D7F53B; /* Amarillo-naranja */
 $color-text-bg: #F8F7EE;
-$color-item: #EFFB9F;
 
 :root {
     --font-family-sans-serif: 'Atkinson Hyperlegible', sans-serif;
@@ -169,9 +169,9 @@ html, body {
     font-family: var(--font-family-sans-serif);
 }
 body {
-    padding-top: 3.5rem;
     background-color: $color-dark;
     color: $color-black;
+    height: 100vh;
 }
 main {
     padding: 2rem 0;
@@ -180,10 +180,24 @@ img {
     max-width: 100%;
 }
 a {
-    color: $color-medium;
+    color: $color-text-white;
     transition: all .2s ease-in-out;
 
     &:hover {
         color: $color-dark;
+    }
+}
+/* menu */
+#navbarSupportedContent{
+    ul{
+        width: 100%;
+        justify-content: flex-end;
+        li{
+            a{
+                span{
+                    color: $color-amarillo-light;
+                }
+            }
+        }
     }
 }
