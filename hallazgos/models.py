@@ -56,7 +56,7 @@ class Modalidad(models.Model):
     class Meta:
         ordering = ['nombre']
     def AllWithCount():
-        return set(Hallazgo.objects.values_list('modalidad__nombre', flat= True))
+        return Hallazgo.objects.values('modalidad_id').values('modalidad__nombre').annotate(c=models.Count('modalidad_id')).order_by('-c')
     def __str__(self):
         return '{self.nombre}'.format(self=self)
     def exist_or_create(nombre: str):
@@ -75,7 +75,7 @@ class Modalidad(models.Model):
 class Municipio(models.Model):
     nombre = models.CharField(max_length=250, unique=True)
     def AllWithCount():
-        return set(Hallazgo.objects.values_list('municipio__nombre', flat= True))
+        return Hallazgo.objects.values('municipio_id').values('municipio__nombre').annotate(c=models.Count('municipio_id')).order_by('-c')
     class Meta:
         ordering = ['nombre']
     def __str__(self):
@@ -125,7 +125,6 @@ class Hallazgo(models.Model):
     contiene_imagenes = models.BooleanField(default=False, blank=True)
     notas_internas = models.TextField(blank=True)
     class Meta:
-        ordering = ['-source_id']
         unique_together = ('source_id', 'colectivo')
 
     def __str__(self):

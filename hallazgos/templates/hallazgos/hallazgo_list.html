@@ -19,7 +19,7 @@
                         </option>
                         {% for municipio in municipios %}
                             <option>
-                                {{ municipio }}
+                                {{ municipio.municipio__nombre }}
                             </option>
                         {% endfor %}
                     </select>
@@ -33,15 +33,15 @@
                     {% for m in modalidades %}
                         <div>
                             <div class="form-check">
-                                <label class="form-check-label" for="id_check_{{ m }}_{{ forloop.counter }}">{{ m }}</label>
+                                <label class="form-check-label" for="id_check_{{ m.nombre }}_{{ forloop.counter }}">{{ m.modalidad__nombre }}</label>
                                 <input type="checkbox"
                                        class="form-check-input"
                                        name="modalidades"
-                                       value="{{ m }}"
+                                       value="{{ m.modalidad__nombre }}"
                                        id="id_check_{{ m }}_{{ forloop.counter }}"/>
                             </div>
                             <div class="form">
-                                <span class="ae-counter">{{ 00 }}</span>
+                                <span class="ae-counter">{{ m.c }}</span>
                             </div>
                         </div>
                     {% endfor %}
@@ -56,15 +56,15 @@
                         <div>
                             <div class="form-check">
                                 <label class="form-check-label"
-                                       for="id_check_{{ tipo }}{{ forloop.counter }}">{{ tipo }}</label>
+                                       for="id_check_{{ tipo.tipo }}{{ forloop.counter }}">{{ tipo.tipo }}</label>
                                 <input type="checkbox"
                                        class="form-check-input"
                                        name="tipos"
-                                       value="{{ tipo }}"
+                                       value="{{ tipo.tipo }}"
                                        id="id_check_{{ tipo }}{{ forloop.counter }}"/>
                             </div>
                             <div class="form">
-                                <span class="ae-counter">00</span>
+                                <span class="ae-counter">{{ tipo.c }}</span>
                             </div>
                         </div>
                     {% endfor %}
@@ -156,7 +156,7 @@
                 <div>
                     <div>
                         <h4>
-                            <span class="ae-counter">{{ get_queryset | length }}</span>
+                            <span class="ae-counter">{{ c }}</span>
                         </h4>
                     </div>
                     <div>
@@ -170,7 +170,7 @@
                         </h4>
                     </div>
                     <div>
-                        <h6>colectivos colaboran</h6>
+                        <h6>Colectivos olaboran</h6>
                     </div>
                 </div>
             </div>
@@ -178,13 +178,13 @@
                 <div>
                     <h6>Municipios de Sonora con más registros de hallazgos</h6>
                 </div>
-                {% for municipio in municipios %}
+                {% for municipio in municipiostop %}
                     <div>
                         <div>
-                            <span>{{ municipio }}</span>
+                            <span>{{ municipio.municipio__nombre }}</span>
                         </div>
                         <div>
-                            <span>00</span>
+                            <span>{{ municipio.c }}</span>
                         </div>
                     </div>
                 {% endfor %}
@@ -197,9 +197,9 @@
             let sonora_center = new google.maps.LatLng(29.3955122,-111.7386465);
         let map = new google.maps.Map(document.getElementById('map'), {
             center: sonora_center,
-            zoom: 6,
+            zoom: 7,
             mapTypeId: 'terrain',
-            radius: 20, 
+            radius: 30, 
             gradient: 'indigo'
         });
         var hidden = false;
