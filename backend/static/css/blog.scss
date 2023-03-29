@@ -24,21 +24,29 @@
             border-radius: 2vw;
             padding: 2em;
             header{
-                ul.post-detail{
-                    li{
-                        &:last-child{
-                    
-                            display: none;
-                        }
-                        list-style: none;
-                        color: $color-text-white;
-                        a{
-                         display: inline-block;
-                         text-transform: capitalize;
-                         text-decoration: none;
-                        }
+                ul{
+                    margin: 0;
+                    margin-block: 0;
+                    padding-inline-start: 0;
+                        &.post-detail{
+                            &.tags{
+                                display: none;
+                            }
+                            li{
+                                &:last-child{
+                            
+                                    display: none;
+                                }
+                                list-style: none;
+                                color: $color-text-white;
+                                a{
+                                    display: inline-block;
+                                    text-transform: capitalize;
+                                    text-decoration: none;
+                                }
+                            }
+                        
                     }
-                    
                 }
                 h3{
                     font-size: x-large;
@@ -49,6 +57,11 @@
                             text-transform: uppercase;
                         }
                         text-decoration: none;
+                        overflow: hidden;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 2; /* number of lines to show */
+                                line-clamp: 2; 
+                        -webkit-box-orient: vertical;
                     }
                   
                 }
@@ -67,14 +80,25 @@
             color: $color-amarillo;
             border-radius: 3vw;
             padding: 2.5em 2em 3.5em 2em;
-
+            
             header{
+                ul.post-detail{
+                    
+                        li{
+                            opacity: .5;
+                            color: $color-amarillo;
+                            a{
+                                color: $color-amarillo;
+                            }
+                        }
+                    
+                }
                 h3{
                
                     a{
-                        color: $color-amarillo;
-                        text-decoration: none;
-                    
+                        display: inline-block;
+
+                        color: $color-amarillo;                    
                     }
                     font-size: xx-large;
                     font-weight: normal;

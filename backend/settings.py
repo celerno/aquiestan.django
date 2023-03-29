@@ -207,7 +207,6 @@ if not DEBUG:
 LANGUAGE_CODE = 'es'
 
 LANGUAGES = [
-    ('en', _('English')),
     ('es', _('Spanish')),
 ]
 
