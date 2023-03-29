@@ -3,6 +3,7 @@
 {% load static %}
 {% block base_js %}
     <script src="{% static 'js/geoToPixel.js' %}"></script>
+
 {% endblock base_js %}
 {% block content %}
     <div class="hallazgos">
@@ -127,20 +128,8 @@
                 </div>
             </div>
             <div class="ae-control-map">
-                <div id="map">
-                    <picture>
-                        <source srcset="{% static 'assets/map-sonora.svg' %}" />
-                        <img height="auto"
-                             width="100%"
-                             src="{% static 'assets/map-sonora.svg' %}"
-                             alt="Mapa de Sonora"/>
-                    </picture>
-                    <script>latlng = [];</script>
-                    {% for lat,lng in markers %}
-                        <script>latlng.push([ {{ lat }} , {{ lng }}]);</script>
-                        <div class="ae-marker" id="ae-marker-{{ foorloop.counter }}">.</div>
-                    {% endfor %}
-                </div>
+                <div id="map"></div>
+                
                 <div class="ae-control-map-legend">
                     <div>
                         <span>Registros de hallazgos</span>
@@ -199,4 +188,45 @@
             </div>
         </div>
     </div>
+    <script>
+        window.initMap = function() {
+            let sonora_center = new google.maps.LatLng(29.3955122,-111.7386465);
+            let map = new google.maps.Map(document.getElementById('map'), {
+                center: sonora_center,
+                zoom: 6,
+                mapTypeId: 'terrain',
+                radius: 20, 
+                gradient: 'indigo'
+            });
+            var infoWindow;
+            var marker;
+
+            let latlng = [];
+            {% for lat,lng, fecha, observaciones, info in markers %}
+                {% if lat != '0' and lng != '0' %}
+                    latlng.push(new google.maps.LatLng({{ lat }},{{ lng }}));
+                    
+                {% endif %}
+            {% endfor %}
+                /*infoWindow = new google.maps.InfoWindow({content:'<p>{{observaciones}}</p>'});
+                    marker = new google.maps.Marker(
+                        {
+                            position: new google.maps.LatLng({{ lat }},{{ lng }}), 
+                            map: map, 
+                            title: {{fecha}}
+                        });
+                    marker.addListener("click", () => { infoWindow.open({anchor:marker, map: map})});*/
+            
+            
+            var heatmap = new google.maps.visualization.HeatmapLayer({
+                data: latlng
+            });
+            heatmap.setMap(map);
+        }
+        
+        var script = document.createElement('script');
+                        script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMNYIMXh8pN508HSMPfPVrGEO5l39CdrQ&libraries=visualization&callback=initMap';
+                        script.async = true;
+                        document.head.appendChild(script);
+    </script>
 {% endblock content %}

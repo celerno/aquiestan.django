@@ -41,16 +41,16 @@ class Command(BaseCommand):
                                         notas_internas = row[14].strip(),
                                         )
                     try:
-                        hallazgo.geo_latitud = 0 if not row[5] else float(row[5].strip())
+                        hallazgo.geo_latitud = 0 if not row[5] else row[5].strip()
                     except ValueError:
                         try:
-                            hallazgo.geo_latitud = 0 if not row[5] else float(row[5].split(",")[0])
-                            hallazgo.geo_longitud = 0 if not row[5] else float(row[5].split(",")[1])
+                            hallazgo.geo_latitud = 0 if not row[5] else row[5].split(",")[0].strip()
+                            hallazgo.geo_longitud = 0 if not row[5] else row[5].split(",")[1].strip()
                         except ValueError:
                             hallazgo.geo_latitud = 0
                     if not hallazgo.geo_longitud or hallazgo.geo_longitud == 0:
                         try:
-                            hallazgo.geo_longitud = 0 if not row[6] else float(row[6])
+                            hallazgo.geo_longitud = 0 if not row[6] else row[6].strip()
                         except ValueError:
                             hallazgo.geo_longitud = 0
                                                             

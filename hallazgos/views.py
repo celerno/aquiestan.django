@@ -32,8 +32,8 @@ def lat_lon_convert(lat_lon: list):
     lon_start = -115.05720122875945 # esquina
     lon_end= -108.24102851631902 # esquina 
 
-    for lat, lon in lat_lon:
-            lat_lon_list.append(translate_to_percentage((lat, lon), (lat_start, lon_start), (lat_end, lon_end)))
+    # for lat, lon in lat_lon:
+            # lat_lon_list.append(translate_to_percentage((lat, lon), (lat_start, lon_start), (lat_end, lon_end)))
     return lat_lon_list
 
 class HallazgoListView(ListView): 
@@ -45,11 +45,11 @@ class HallazgoListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['markers'] = lat_lon_convert(self.model.objects.all().values_list('geo_latitud', 'geo_longitud'))
+        context['markers'] = self.model.objects.all().values_list('geo_latitud', 'geo_longitud', 'source_id','fecha', 'observaciones')
         context['colectivos'] = Colectivo.objects.all().values_list('nombre', flat=True)
         context['modalidades'] = Modalidad.AllWithCount()
         context['municipios'] = Municipio.AllWithCount()
-        context['tipos'] = set(Hallazgo.objects.values_list('tipo', flat=True))
+        context['tipos'] = set(Hallazgo.objects.values_list('tipo', flat=True).distinct())
         context['anos'] = filter(lambda x: x > 1900, Hallazgo.all_dates_anios())
         context['meses'] = filter(lambda x: x, Hallazgo.all_dates_meses())
         return context
