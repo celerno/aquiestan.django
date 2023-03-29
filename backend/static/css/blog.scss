@@ -4,6 +4,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: center;
 
         article{
             &:first-child{
@@ -12,38 +13,45 @@
             margin-top: 2vh;
             /* cajita gris */
             flex: 50%;
-            max-width: 33%;
+            max-width: 33vw;
             max-height: 15vh;
             overflow: hidden;
             background-color: #5b5b5bf0;
             border-radius: 2vw;
-            padding: 1vh 1vw;
+            padding: 1em 1em;
             header{
                 h3{
-                    font-size: medium;
+                    font-size: x-large;
+                    font-weight: normal;
+                    a{text-decoration: none;}
                 }
                 h4{
-                    font-size: small;
+                    font-size: large;
+                    font-weight: normal;
                 }
             }
         }
         article:nth-child(3n){
             flex: 100%;
-            max-width: 66%;
+            max-width: 67vw;
             max-height: 30vh;
             background-color: black;
             color: $color-amarillo-light;
-
+            border-radius: 3vw;
             header{
                 h3{
                     a{
                         color: $color-amarillo-light;
+                        text-decoration: none;
                     
                     }
-                    font-size: large;
+                    font-size: xx-large;
+                    font-weight: normal;
+                    padding-top: 1vh;
                 }
                 h4{
-                    font-size: medium;
+                    font-size: x-large;
+                    font-weight: normal;
                 }
             }
         }

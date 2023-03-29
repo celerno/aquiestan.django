@@ -1,5 +1,4 @@
 {% load static %}
-{% load compress %}
 <!DOCTYPE html>{% load cms_tags menu_tags sekizai_tags static i18n %}{% spaceless %}
     <html lang="{{ LANGUAGE_CODE }}">
         <head>
@@ -21,11 +20,6 @@
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
             <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
             {% block base_css %}{% endblock base_css %}
-
-            {% compress css %}
-            <link type="text/x-scss" rel="stylesheet" media="screen" href="{% static 'css/style.scss' %}" />
-            <link type="text/x-scss" href="{% static 'css/blog.scss' %}" rel="stylesheet" media="screen">
-            {% endcompress %}
             <title>{% block title %}{% page_attribute "page_title" %}{% endblock %}</title>
 
 {% endspaceless %}{% render_block 'css' %}{% spaceless %}
