@@ -10,6 +10,7 @@
         background-color: #B79D64;
     }
     article{
+        position: relative;
         width: 22%;
         border-radius: 15px;
         background-color: $color-dark;
@@ -41,7 +42,15 @@
                 }
             }
         }
+        .blog-lead{
+            display: none;
+        }
         footer{
+            display: block;
+            position: absolute;
+            bottom: 1em;
+            right: 1em;
+            text-align: right;
             a{
                 text-decoration: none;
                 color:black;
