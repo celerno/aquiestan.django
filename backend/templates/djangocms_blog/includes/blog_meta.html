@@ -1,12 +1,11 @@
 {% load i18n easy_thumbnails_tags cms_tags %}
-
 <ul class="post-detail">
     {% if post.author %}
     <li>
         {% trans "por" %} <a href="{% url 'djangocms_blog:posts-author' post.author.get_username %}">{% if post.author.get_full_name %}{{ post.author.get_full_name }}{% else %}{{ post.author }}{% endif %}</a>
     </li>
     {% endif %}
-    {% if post.date_published %}
+    {% if False and post.date_published %}
     <li>
         {{ post.date_published|date:"DATE_FORMAT" }}
     </li>

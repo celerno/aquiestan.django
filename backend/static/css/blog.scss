@@ -1,4 +1,61 @@
 @import 'style.scss';
+.blog-list{
+    display: flex;
+    background-color: $color-text-bg;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 4rem;
+    article:first-of-type{
+        width: 44%;
+        background-color: #B79D64;
+    }
+    article{
+        width: 22%;
+        border-radius: 15px;
+        background-color: $color-dark;
+        margin:1rem;
+        padding:1rem;
+        header{
+            h3{
+                a{
+                    color: black;
+                    font-size: 16pt;
+                    font-weight: 600;
+                    text-decoration: none;
+                }
+                
+                
+            }
+            h4{
+                color:black;
+                font-size: 12pt;
+            }
+            .post-detail{
+                li{
+                    list-style: none;
+                    a{
+                        text-decoration: none;
+                        color: black;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+        }
+        footer{
+            a{
+                text-decoration: none;
+                color:black;
+            }
+        }
+    }
+    > header{
+        width: 100%;
+       h2{
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+    }
+}
 .plugin-blog{
     .blog-latest-entries{
         display: flex;
