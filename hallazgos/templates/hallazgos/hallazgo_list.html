@@ -13,7 +13,7 @@
                     <h6>Municipio</h6>
                 </div>
                 <div>
-                    <select class="form-select" title="municipios">
+                    <select id="municipios_select" class="form-select" title="municipios">
                         <option value="0" default>
                             Todos
                         </option>
@@ -29,7 +29,7 @@
                 <div>
                     <h6>Modalidad del hallazgo</h6>
                 </div>
-                <div class="ae-filter">
+                <div class="ae-filter" title="Solo aquellos hallazgos con información de ubicación se muestran en el mapa. La cantidad puede diferir debido a ello.">
                     {% for m in modalidades %}
                         <div>
                             <div class="form-check">
@@ -38,7 +38,8 @@
                                        class="form-check-input"
                                        name="modalidades"
                                        value="{{ m.modalidad__nombre }}"
-                                       id="id_check_{{ m }}_{{ forloop.counter }}"/>
+                                       id="{{ m.modalidad__nombre }}"
+                                        />
                             </div>
                             <div class="form">
                                 <span class="ae-counter">{{ m.c }}</span>
@@ -61,7 +62,7 @@
                                        class="form-check-input"
                                        name="tipos"
                                        value="{{ tipo.tipo }}"
-                                       id="id_check_{{ tipo }}{{ forloop.counter }}"/>
+                                       id="tipo.tipo"/>
                             </div>
                             <div class="form">
                                 <span class="ae-counter">{{ tipo.c }}</span>
@@ -153,10 +154,10 @@
         </div>
         <div class="ae-right">
             <div class="ae-fields">
-                <div>
+                <div title="Solo aquellos hallazgos con información de ubicación se muestran en el mapa. La cantidad puede diferir debido a ello.">
                     <div>
                         <h4>
-                            <span class="ae-counter">{{ c }}</span>
+                            <span id="hallazgos_counter" class="ae-counter">{{ c }}</span>
                         </h4>
                     </div>
                     <div>
@@ -192,8 +193,9 @@
         </div>
     </div>
     <script>
-        
+ 
         window.initMap = function() {
+            
             let sonora_center = new google.maps.LatLng(29.3955122,-111.7386465);
         let map = new google.maps.Map(document.getElementById('map'), {
             center: sonora_center,
@@ -204,6 +206,72 @@
         });
         var hidden = false;
         var markers =  [];
+        document.querySelector('#municipios_select').addEventListener('change',
+            function(e){
+                var filtered = 0;
+                if(e.target.value === '0'){
+                    setMapOnAll(map);
+                    return;
+                }
+                
+                // alert(modalidad.value);
+                for (let i = 0; i < markers.length; i++) {
+                    try{    
+                    if(markers[i].municipio === e.target.value){
+                        markers[i].setMap(map);
+                        filtered++;
+                    }
+                    else{
+                        markers[i].setMap(null);
+                    }
+                }
+                catch{}
+                }
+                //document.querySelector('#hallazgos_counter').innerHTML = filtered;
+            });
+        document.querySelectorAll('input[name=modalidades]').forEach(function(i){
+            i.addEventListener('change',  function (e){
+            var filtered = 0;
+            // alert(modalidad.value);
+            for (let i = 0; i < markers.length; i++) {
+                try{
+                let checked = document.querySelector('#' + markers[i].modalidad).checked;
+
+                if(checked){
+                    markers[i].setMap(map);
+                    filtered++;
+                }
+                else{
+                    markers[i].setMap(null);
+                }
+            }
+            catch{}
+            }
+            //document.querySelector('#hallazgos_counter').innerHTML = filtered;
+         })
+        });
+        document.querySelectorAll('input[name=tipos]').forEach(function(i){
+            i.addEventListener('change',  function (e){
+            var filtered = 0;
+            // alert(modalidad.value);
+            for (let i = 0; i < markers.length; i++) {
+                try{
+                let checked = document.querySelector('#' + markers[i].tipo).checked;
+
+                if(checked){
+                    markers[i].setMap(map);
+                    filtered++;
+                }
+                else{
+                    markers[i].setMap(null);
+                }
+            }
+            catch{}
+            }
+            //document.querySelector('#hallazgos_counter').innerHTML = filtered;
+         })
+        });
+       
         function addInfoWindow(map, marker, message) {
 
             var infoWindow = new google.maps.InfoWindow({
@@ -236,7 +304,7 @@
         .getElementById("hide-markers")
         .addEventListener("click", hideMarkers);
             let latlng = [];
-            {% for lat,lng, source_id, fecha, observaciones in markers %}
+            {% for lat,lng, source_id, fecha, observaciones, modalidad_nombre, municipio__nombre, tipo in markers %}
                 {% if lat != '0' and lng != '0' %}
                     latlng.push(new google.maps.LatLng({{ lat }},{{ lng }}));
                     {
@@ -244,8 +312,11 @@
                             {
                                 position: new google.maps.LatLng({{ lat }},{{ lng }}), 
                                 map: map, 
-                                title: '{{ fecha }} - {{ source_id }}'
-                            }), '<div class="marker-info"><strong>Hallazgo ID: {{ source_id }} - {{ fecha }}</strong><p>{{ observaciones }}</p></div>');
+                                modalidad: '{{ modalidad_nombre }}',
+                                municipio:'{{ municipio__nombre }}',
+                                tipo:'{{ tipo }}',
+                                title: '{{ fecha }} - {{ source_id }}',
+                            }), '<div class="marker-info"><strong>Hallazgo ID: {{ source_id }} - {{ fecha }}</strong><p>Modalidad: {{ modalidad_nombre }}</p><p>Tipo de Hallazgo: {{ tipo }}</p> <p>{{ observaciones }}</p></div>');
                     }
                 {% endif %}
             {% endfor %}

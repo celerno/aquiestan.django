@@ -12,7 +12,7 @@ class HallazgoListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['markers'] = self.model.objects.all().values_list('geo_latitud', 'geo_longitud', 'source_id','fecha', 'observaciones')
+        context['markers'] = self.model.objects.all().values_list('geo_latitud', 'geo_longitud', 'source_id','fecha', 'observaciones', 'modalidad__nombre', 'municipio__nombre','tipo',)
         context['colectivos'] = Colectivo.objects.all().values_list('nombre', flat=True)
         context['modalidades'] = Modalidad.AllWithCount()
         context['municipios'] = Municipio.AllWithCount()
