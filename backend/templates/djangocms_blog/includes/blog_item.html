@@ -11,8 +11,8 @@
     </header>
     {% if image and post.main_image %}
     <div class="blog-visual">
-        {% thumbnail post.main_image "400x400" subject_location=post.main_image.subject_location as thumb %}
-        <img src="{{ thumb.url }}" alt="{{ post.main_image.default_alt_text }}" width="100%" height="auto" />
+        {% thumbnail post.main_image "300x300" subject_location=post.main_image.subject_location as thumb %}
+        <img src="{{ thumb.url }}" alt="{{ post.main_image.default_alt_text }}" width="auto" height="100%" />
     </div>
     {% else %}
         {% media_images post as previews %}
