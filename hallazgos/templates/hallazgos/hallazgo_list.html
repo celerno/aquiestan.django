@@ -271,14 +271,18 @@
             //document.querySelector('#hallazgos_counter').innerHTML = filtered;
          })
         });
-       
+        let infoWindows=[];
+
         function addInfoWindow(map, marker, message) {
 
             var infoWindow = new google.maps.InfoWindow({
-                content: message
+                content: message,
+                
             });
+            infoWindows.push(infoWindow);
 
             google.maps.event.addListener(marker, 'click', function () {
+                infoWindows.forEach(item => item.close());
                 infoWindow.open(map, marker);
             });
             markers.push(marker);
