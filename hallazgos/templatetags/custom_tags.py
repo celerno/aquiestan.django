@@ -3,6 +3,9 @@ import calendar
 
 register = template.Library()
 
+@register.filter(name="avg")
+def avg(value, total):
+    return "❚" * int(100 * value/total)
 
 @register.filter
 def month_name(month_number):

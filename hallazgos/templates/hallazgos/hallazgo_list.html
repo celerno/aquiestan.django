@@ -1,5 +1,5 @@
 {% extends "aquiestan.html" %}
-{% load month_tags %}
+{% load custom_tags %}
 {% load static %}
 {% block base_js %}
     <script src="{% static 'js/geoToPixel.js' %}"></script>
@@ -157,7 +157,7 @@
                 <div title="Solo aquellos hallazgos con información de ubicación se muestran en el mapa. La cantidad puede diferir debido a ello.">
                     <div>
                         <h4>
-                            <span id="hallazgos_counter" class="ae-counter">{{ c }}</span>
+                            <span id="hallazgos_counter" class="ae-counter">{{ c|stringformat:"03d" }}</span>
                         </h4>
                     </div>
                     <div>
@@ -167,11 +167,11 @@
                 <div>
                     <div>
                         <h4>
-                            <span class="ae-counter">{{ colectivos | length }}</span>
+                            <span class="ae-counter">{{ colectivos | length |stringformat:"03d" }}</span>
                         </h4>
                     </div>
                     <div>
-                        <h6>Colectivos olaboran</h6>
+                        <h6>Colectivos colaboran</h6>
                     </div>
                 </div>
             </div>
@@ -183,9 +183,12 @@
                     <div>
                         <div>
                             <span>{{ municipio.municipio__nombre }}</span>
+
                         </div>
                         <div>
-                            <span>{{ municipio.c }}</span>
+                            <span class="ae-bar">{{  municipio.c | avg:c }} </span>
+
+                           <span class="ae-counter" style="font-style:italic"> {{ municipio.c }}</span>
                         </div>
                     </div>
                 {% endfor %}
