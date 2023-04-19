@@ -207,10 +207,17 @@ a {
 #floating-panel {
     position: absolute;
     top: 85px;
-    right: 40px;
+    right: 38px;
     z-index: 5;
     background-color: transparent;
     padding: 5px;
     border: none;
     text-align: center;
+
+    #hide-markers{
+        font-size: x-large;
+        background-color: $color-amarillo;
+        border-top: none;
+        border-left: none;
+    }
 }
