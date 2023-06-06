@@ -14,7 +14,7 @@ El único prerequisito es tener instalado docker:
 
 ```bash
 git clone https://github.com/celerno/aquiestan.django.git
-cd django-cms-quickstart
+cd aquiestan.django
 docker compose build web
 docker compose up -d database_default
 docker compose run web python manage.py migrate
