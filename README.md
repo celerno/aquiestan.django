@@ -13,7 +13,7 @@ El único prerequisito es tener instalado docker:
 ## Pasos para instalar y ejecutar por primera vez
 
 ```bash
-git clone git@github.com:django-cms/django-cms-quickstart.git
+git clone https://github.com/celerno/aquiestan.django.git
 cd django-cms-quickstart
 docker compose build web
 docker compose up -d database_default
