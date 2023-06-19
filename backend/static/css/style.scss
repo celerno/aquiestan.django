@@ -14,28 +14,10 @@ $color-text-bg: #F8F7EE;
     --font-family-sans-monospace: $font-family-serif;
     --bs-font-sans-serif: 'Atkinson Hyperlegible', sans-serif;
 }
-
-.hallazgos {
-    display: flex;
-    flex-direction: row;
-    background-color: #C8C1B0;
-    height: 95vh;
-    width: 100vw;
-    padding: 10px;
-    >div{
-        padding:10px;
-    }
-}
 .ae-marker{
     position:absolute;
 
 }
-.hallazgos .ae-left {
-    flex: .3;
-    display: flex;
-    flex-direction: column;
-}
-
 .hallazgos .ae-middle {
     display: flex;
     flex-direction: column;

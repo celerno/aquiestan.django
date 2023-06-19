@@ -1,4 +1,7 @@
 @import 'style.scss';
+#navbarSupportedContent ul{
+    justify-content: center;
+}
 .blog-list{
     display: flex;
     background-color: $color-text-bg;
