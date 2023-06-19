@@ -1,11 +1,18 @@
 {% extends "aquiestan.html" %}
 {% load custom_tags %}
-{% load static %}
+{% load static compress %}
+
+
 {% block base_js %}
     <script src="{% static 'js/geoToPixel.js' %}"></script>
 
 {% endblock base_js %}
 {% block content %}
+{% compress css %}
+    <link type="text/x-scss"
+                rel="stylesheet"
+                href="{% static 'css/hallazgos.scss' %}"/>
+{% endcompress %}
     <div class="hallazgos">
         <div class="ae-left">
             <div>
@@ -87,40 +94,6 @@
                                 {% for colectivo in colectivos %}
                                     <option>
                                         {{ colectivo }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <h6>Mes</h6>
-                        </div>
-                        <div>
-                            <select class="form-select" title="meses">
-                                <option value="0" default>
-                                    Todos
-                                </option>
-                                {% for mes in meses %}
-                                    <option value="{{ mes }}">
-                                        {{ mes | month_name }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <h6>Año</h6>
-                        </div>
-                        <div>
-                            <select class="form-select" title="años">
-                                <option value="0" default>
-                                    Todos
-                                </option>
-                                {% for i in anos %}
-                                    <option value="{{ i }}">
-                                        {{ i }}
                                     </option>
                                 {% endfor %}
                             </select>

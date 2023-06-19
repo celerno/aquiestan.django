@@ -1,0 +1,14 @@
+@media screen and (max-width: 640px){
+
+    div.hallazgos{
+        flex-direction: column;
+        .ae-middle{
+            .ae-control-map{
+                height: unset;
+            }
+        }
+        .ae-municipios-list > div{
+            flex-direction: column;
+        }
+    }
+}
