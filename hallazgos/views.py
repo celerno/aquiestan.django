@@ -2,7 +2,7 @@ from django.views.generic import ListView
 from django.db import models
 
 
-from .models import Hallazgo, Colectivo, Modalidad, Municipio
+from .models import Hallazgo, Colectivo, Modalidad, Municipio, HallazgoMedia
 
 class HallazgoListView(ListView): 
     model = Hallazgo
@@ -21,6 +21,7 @@ class HallazgoListView(ListView):
         context['anos'] = filter(lambda x: x > 1900, Hallazgo.all_dates_anios())
         context['meses'] = filter(lambda x: x, Hallazgo.all_dates_meses())
         context['c'] = self.model.objects.count()
+        context['media'] = HallazgoMedia.objects.all()
         return context
 
 

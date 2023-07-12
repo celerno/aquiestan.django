@@ -112,7 +112,7 @@ div.hallazgos>div[class*="ae-"]>div {
 }
 
 .ae-control-map {
-    width: 100%;
+    width: 50vw;
     height: 40vh;
     padding-bottom: 0;
     position: relative;
@@ -218,4 +218,11 @@ a {
         border-top: none;
         border-left: none;
     }
+}
+@media screen and (max-width: 600px){
+    #map{
+        height: 70vh;
+        width: 100%;
+    }
+    
 }

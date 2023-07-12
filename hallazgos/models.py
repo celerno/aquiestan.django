@@ -153,9 +153,9 @@ def parse_date(date_string:str):
 
 class HallazgoMedia(models.Model):
     hallazgo = models.ForeignKey(Hallazgo, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='hallazgo/{hallazgo.source_id}', null=True, blank=True)
+    imagen = models.ImageField(upload_to='hallazgo/', null=True, blank=True)
     def __str__(self):
-        return '{self.hallazgo.fecha}/{self.hallazgo.source_id}/{self.imagen.name}'.format(self=self)
+        return 'media/hallazgo/{self.imagen.name}'.format(self=self)
 
 class HallazgoCSVFile(models.Model):
     csv_file = models.FileField(upload_to="hallazgos_csv",validators=[FileExtensionValidator(['csv'])] )
