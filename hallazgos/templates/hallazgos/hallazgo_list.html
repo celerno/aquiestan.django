@@ -14,7 +14,7 @@
                 href="{% static 'css/hallazgos.scss' %}"/>
 {% endcompress %}
 <div style='display: none'>
-{% for lat,lng, source_id, fecha, observaciones, modalidad_nombre, municipio__nombre, tipo, colectivo in markers %}
+{% for lat,lng, source_id, fecha, observaciones, modalidad_nombre, municipio__nombre, tipo, colectivo,contiene_imagenes in markers %}
 
     <div id="marker-info-{{ source_id }}" class="marker-info">
         <div>
@@ -29,6 +29,8 @@
                             <img class="d-block w-100" src='/media/{{ imagen }}' />
                          </div>
                         {% endif %}
+                        {% empty %}
+                        <p class="sin-imagenes">Sin im&aacute;genes.</p>
                     {% endfor %}
                     <button class="carousel-control-prev" type="button" data-bs-target="#marker-info-img-{{ source_id }}" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -514,7 +516,7 @@
         .getElementById("hide-markers")
         .addEventListener("click", hideMarkers);
             let latlng = [];
-            {% for lat,lng, source_id, fecha, observaciones, modalidad_nombre, municipio__nombre, tipo, colectivo in markers %}
+            {% for lat,lng, source_id, fecha, observaciones, modalidad_nombre, municipio__nombre, tipo, colectivo,contiene_imagenes in markers %}
                 {% if lat != '0' and lng != '0' %}
                     latlng.push(new google.maps.LatLng({{ lat }},{{ lng }}));
                     {
@@ -526,6 +528,11 @@
                                 modalidad: '{{ modalidad_nombre }}',
                                 municipio:'{{ municipio__nombre }}',
                                 tipo:'{{ tipo }}',
+                                {% if contiene_imagenes %}
+                                icon: '{% static "assets/file-richtext.svg" %}',
+                                {% else %}
+                                icon: '{% static "assets/file-text.svg" %}',
+                                {% endif %}
                                 title: '{{ fecha }} - {{ source_id }}',
                             }), document.getElementById('marker-info-{{ source_id }}').innerHTML);
                         
@@ -536,7 +543,7 @@
            var heatmap = new google.maps.visualization.HeatmapLayer({
                 data: latlng
             });
-            heatmap.setMap(map);
+            //heatmap.setMap(map);
         }
         var script = document.createElement('script');
                         script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMNYIMXh8pN508HSMPfPVrGEO5l39CdrQ&libraries=visualization&callback=initMap';
