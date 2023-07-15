@@ -149,7 +149,9 @@ div.hallazgos>div[class*="ae-"]>div {
     flex-direction: row;
     justify-content: space-between;
 }
-
+.carousel-item{
+    max-width: 100%;
+}
 .ae-filter>div>div:first-child {
     margin-right: 10px;
 }

@@ -4,7 +4,7 @@
 
 
 {% block base_js %}
-    <script src="{% static 'js/geoToPixel.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 {% endblock base_js %}
 {% block content %}
@@ -13,6 +13,40 @@
                 rel="stylesheet"
                 href="{% static 'css/hallazgos.scss' %}"/>
 {% endcompress %}
+<div style='display: none'>
+{% for lat,lng, source_id, fecha, observaciones, modalidad_nombre, municipio__nombre, tipo, colectivo in markers %}
+
+    <div id="marker-info-{{ source_id }}" class="marker-info">
+        <div>
+            <strong>Hallazgo ID: {{ source_id }} - {{ fecha }}</strong><p>Modalidad: {{ modalidad_nombre }}</p>
+            <p>Tipo de Hallazgo: {{ tipo }}</p>
+            <p>{{ observaciones }}</p>
+            <div id='marker-info-img-{{ source_id }}' class="carousel slide  carousel-fade" data-bs-ride="carousel">
+                <div class='carousel-inner'>
+                    {% for imagen, hallazgo__source_id in media|by_hallazgo:source_id %}
+                        {% if hallazgo__source_id == source_id %}
+                         <div class='carousel-item {% if forloop.first %}active{% endif %}'>
+                            <img class="d-block w-100" src='/media/{{ imagen }}' />
+                         </div>
+                        {% endif %}
+                    {% endfor %}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#marker-info-img-{{ source_id }}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#marker-info-img-{{ source_id }}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                </div>
+            </div>
+        </div>
+        <script>
+            { new bootstrap.Carousel('#marker-info-img-{{ source_id }}');}
+         </script>
+    </div>
+    
+{% endfor %}
+</div>
     <div class="hallazgos">
         <div class="ae-left">
             <div>
@@ -69,7 +103,7 @@
                                        class="form-check-input"
                                        name="tipos"
                                        value="{{ tipo.tipo }}"
-                                       id="tipo.tipo"/>
+                                       id="{{ tipo.tipo }}"/>
                             </div>
                             <div class="form">
                                 <span class="ae-counter">{{ tipo.c }}</span>
@@ -87,12 +121,12 @@
                             <h6>Colectivo que realizó la búsqueda</h6>
                         </div>
                         <div>
-                            <select class="form-select" title="colectivos">
+                            <select id="colectivos-select" class="form-select" title="colectivos">
                                 <option value="0" default>
                                     Todos
                                 </option>
-                                {% for colectivo in colectivos %}
-                                    <option>
+                                {% for id, colectivo in colectivos %}
+                                    <option value="{{ id }}">
                                         {{ colectivo }}
                                     </option>
                                 {% endfor %}
@@ -168,8 +202,7 @@
             </div>
         </div>
     </div>
-    <script>
- 
+    <script>        
         window.initMap = function() {
             
             let sonora_center = new google.maps.LatLng(29.3955122,-111.7386465);
@@ -357,6 +390,28 @@
         });
         var hidden = false;
         var markers =  [];
+        document.querySelector('#colectivos-select').addEventListener('change', function(e){
+            var filtered = 0;
+            if(e.target.value === '0'){
+                setMapOnAll(map);
+                return;
+            }
+            
+            // alert(modalidad.value);
+            for (let i = 0; i < markers.length; i++) {
+                try{    
+                if(markers[i].colectivo === e.target.value){
+                    markers[i].setMap(map);
+                    filtered++;
+                }
+                else{
+                    markers[i].setMap(null);
+                }
+            }
+            catch{}
+        }
+
+        });
         document.querySelector('#municipios_select').addEventListener('change',
             function(e){
                 var filtered = 0;
@@ -459,7 +514,7 @@
         .getElementById("hide-markers")
         .addEventListener("click", hideMarkers);
             let latlng = [];
-            {% for lat,lng, source_id, fecha, observaciones, modalidad_nombre, municipio__nombre, tipo in markers %}
+            {% for lat,lng, source_id, fecha, observaciones, modalidad_nombre, municipio__nombre, tipo, colectivo in markers %}
                 {% if lat != '0' and lng != '0' %}
                     latlng.push(new google.maps.LatLng({{ lat }},{{ lng }}));
                     {
@@ -467,12 +522,15 @@
                             {
                                 position: new google.maps.LatLng({{ lat }},{{ lng }}), 
                                 map: map, 
+                                colectivo: '{{ colectivo }}',
                                 modalidad: '{{ modalidad_nombre }}',
                                 municipio:'{{ municipio__nombre }}',
                                 tipo:'{{ tipo }}',
                                 title: '{{ fecha }} - {{ source_id }}',
-                            }), '<div class="marker-info"><strong>Hallazgo ID: {{ source_id }} - {{ fecha }}</strong><p>Modalidad: {{ modalidad_nombre }}</p><p>Tipo de Hallazgo: {{ tipo }}</p> <p>{{ observaciones }}</p></div>');
+                            }), document.getElementById('marker-info-{{ source_id }}').innerHTML);
+                        
                     }
+
                 {% endif %}
             {% endfor %}
            var heatmap = new google.maps.visualization.HeatmapLayer({
@@ -480,7 +538,6 @@
             });
             heatmap.setMap(map);
         }
-        
         var script = document.createElement('script');
                         script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMNYIMXh8pN508HSMPfPVrGEO5l39CdrQ&libraries=visualization&callback=initMap';
                         script.async = true;

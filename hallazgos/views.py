@@ -12,8 +12,8 @@ class HallazgoListView(ListView):
         return self.model.objects.all()
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['markers'] = self.model.objects.all().values_list('geo_latitud', 'geo_longitud', 'source_id','fecha', 'observaciones', 'modalidad__nombre', 'municipio__nombre','tipo',)
-        context['colectivos'] = Colectivo.objects.all().values_list('nombre', flat=True)
+        context['markers'] = self.model.objects.all().values_list('geo_latitud', 'geo_longitud', 'source_id','fecha', 'observaciones', 'modalidad__nombre', 'municipio__nombre','tipo', 'colectivo')
+        context['colectivos'] = Colectivo.objects.all().values_list('id', 'nombre')
         context['modalidades'] = Modalidad.AllWithCount()
         context['municipios'] = Municipio.AllWithCount()
         context['municipiostop'] = Municipio.AllWithCount()[:10]
@@ -21,7 +21,7 @@ class HallazgoListView(ListView):
         context['anos'] = filter(lambda x: x > 1900, Hallazgo.all_dates_anios())
         context['meses'] = filter(lambda x: x, Hallazgo.all_dates_meses())
         context['c'] = self.model.objects.count()
-        context['media'] = HallazgoMedia.objects.all()
+        context['media'] = HallazgoMedia.objects.values_list('imagen', 'hallazgo__source_id')
         return context
 
 
