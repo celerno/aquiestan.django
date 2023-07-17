@@ -17,16 +17,18 @@
 {% for lat,lng, source_id, fecha, observaciones, modalidad_nombre, municipio__nombre, tipo, colectivo,contiene_imagenes in markers %}
 
     <div id="marker-info-{{ source_id }}" class="marker-info">
-        <div>
+        <div class="marker-info-content">
+            <div>
             <strong>Hallazgo ID: {{ source_id }} - {{ fecha }}</strong><p>Modalidad: {{ modalidad_nombre }}</p>
             <p>Tipo de Hallazgo: {{ tipo }}</p>
             <p>{{ observaciones }}</p>
-            <div id='marker-info-img-{{ source_id }}' class="carousel slide  carousel-fade" data-bs-ride="carousel">
+            </div>
+            <div id='marker-info-img-{{ source_id }}' class="carousel slide  carousel-fade" data-bs-ride="false">
                 <div class='carousel-inner'>
                     {% for imagen, hallazgo__source_id in media|by_hallazgo:source_id %}
                         {% if hallazgo__source_id == source_id %}
                          <div class='carousel-item {% if forloop.first %}active{% endif %}'>
-                            <img class="d-block w-100" src='/media/{{ imagen }}' />
+                            <img class="hallazgo-img w-100" src='/media/{{ imagen }}' />
                          </div>
                         {% endif %}
                         {% empty %}
@@ -51,22 +53,45 @@
 </div>
     <div class="hallazgos">
         <div class="ae-left">
-            <div>
-                <div>
-                    <h6>Municipio</h6>
+            <div class="ae-fields">
+                <div title="Solo aquellos hallazgos con información de ubicación se muestran en el mapa. La cantidad puede diferir debido a ello.">
+                    <div>
+                        <h4>
+                            <span id="hallazgos_counter" class="ae-counter">{{ c|stringformat:"03d" }}</span>
+                        </h4>
+                    </div>
+                    <div>
+                        <h6>Hallazgos</h6>
+                    </div>
                 </div>
                 <div>
-                    <select id="municipios_select" class="form-select" title="municipios">
-                        <option value="0" default>
-                            Todos
-                        </option>
-                        {% for municipio in municipios %}
-                            <option>
-                                {{ municipio.municipio__nombre }}
-                            </option>
-                        {% endfor %}
-                    </select>
+                    <div>
+                        <h4>
+                            <span class="ae-counter">{{ colectivos | length |stringformat:"03d" }}</span>
+                        </h4>
+                    </div>
+                    <div>
+                        <h6>Colectivos colaboran</h6>
+                    </div>
                 </div>
+            </div>
+            <div class="ae-municipios-list">
+                <div>
+                    <h6>Municipios de Sonora con más registros de hallazgos</h6>
+                </div>
+                {% for municipio in municipiostop %}
+                    <div>
+                        <div>
+                            <span>{{ municipio.municipio__nombre }}</span>
+
+                        </div>
+                        <div>
+                            <span class="ae-bar">{{  municipio.c | avg:c }} </span>
+
+                           <span class="ae-counter" style="font-style:italic"> {{ municipio.c }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
             <div>
                 <div>
@@ -115,9 +140,27 @@
                 </div>
             </div>
         </div>
+        
         <div class="ae-middle">
             <div class="ae-fields">
                 <div>
+                    <div>
+                        <div>
+                            <h6>Municipio</h6>
+                        </div>
+                        <div>
+                            <select id="municipios_select" class="form-select" title="municipios">
+                                <option value="0" default>
+                                    Todos
+                                </option>
+                                {% for municipio in municipios %}
+                                    <option>
+                                        {{ municipio.municipio__nombre }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                     <div>
                         <div>
                             <h6>Colectivo que realizó la búsqueda</h6>
@@ -161,48 +204,7 @@
                 </div>
             </div>
         </div>
-        <div class="ae-right">
-            <div class="ae-fields">
-                <div title="Solo aquellos hallazgos con información de ubicación se muestran en el mapa. La cantidad puede diferir debido a ello.">
-                    <div>
-                        <h4>
-                            <span id="hallazgos_counter" class="ae-counter">{{ c|stringformat:"03d" }}</span>
-                        </h4>
-                    </div>
-                    <div>
-                        <h6>Hallazgos</h6>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <h4>
-                            <span class="ae-counter">{{ colectivos | length |stringformat:"03d" }}</span>
-                        </h4>
-                    </div>
-                    <div>
-                        <h6>Colectivos colaboran</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="ae-municipios-list">
-                <div>
-                    <h6>Municipios de Sonora con más registros de hallazgos</h6>
-                </div>
-                {% for municipio in municipiostop %}
-                    <div>
-                        <div>
-                            <span>{{ municipio.municipio__nombre }}</span>
-
-                        </div>
-                        <div>
-                            <span class="ae-bar">{{  municipio.c | avg:c }} </span>
-
-                           <span class="ae-counter" style="font-style:italic"> {{ municipio.c }}</span>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
+      
     </div>
     <script>        
         window.initMap = function() {
@@ -534,7 +536,7 @@
                                 icon: '{% static "assets/file-text.svg" %}',
                                 {% endif %}
                                 title: '{{ fecha }} - {{ source_id }}',
-                            }), document.getElementById('marker-info-{{ source_id }}').innerHTML);
+                            }), document.getElementById('marker-info-{{ source_id }}'));
                         
                     }
 

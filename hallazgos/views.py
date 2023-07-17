@@ -16,7 +16,7 @@ class HallazgoListView(ListView):
         context['colectivos'] = Colectivo.objects.all().values_list('id', 'nombre')
         context['modalidades'] = Modalidad.AllWithCount()
         context['municipios'] = Municipio.AllWithCount()
-        context['municipiostop'] = Municipio.AllWithCount()[:10]
+        context['municipiostop'] = Municipio.AllWithCount()[:5]
         context['tipos'] = Hallazgo.objects.values('tipo').annotate(c=models.Count('tipo')).order_by('-c')
         context['anos'] = filter(lambda x: x > 1900, Hallazgo.all_dates_anios())
         context['meses'] = filter(lambda x: x, Hallazgo.all_dates_meses())
