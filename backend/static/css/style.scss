@@ -130,6 +130,7 @@ div.hallazgos>div[class*="ae-"]>div {
     width: 50% !important;
     padding: 5px;
 }
+
 .carousel-inner{
     background-color: #5B5B5B;
 }
@@ -246,7 +247,12 @@ a {
         height: 70vh;
         width: 100%;
     }
-    
+    .marker-info-content{
+        flex-direction: column;
+    }
+    .marker-info-content>div{
+        width: 100% !important;
+    }
 }
 
 /*
