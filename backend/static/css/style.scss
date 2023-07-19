@@ -444,7 +444,14 @@ blog.scss
             max-width: unset;
         }
     }
+    .plugin-blog .blog-latest-entries article{
+        max-width: unset;
+        max-height: unset;
 
+    }
+    .plugin-blog .blog-latest-entries article:nth-child(3n){
+        max-width: 95vw;
+    }
     #map{
         height: 70vh;
         width: 100%;
