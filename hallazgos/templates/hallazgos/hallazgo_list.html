@@ -531,9 +531,9 @@
                                 municipio:'{{ municipio__nombre }}',
                                 tipo:'{{ tipo }}',
                                 {% if contiene_imagenes %}
-                                icon: '{% static "assets/file-richtext.svg" %}',
+                                icon: '{% static "assets/file-richtext.png" %}',
                                 {% else %}
-                                icon: '{% static "assets/file-text.svg" %}',
+                                icon: '{% static "assets/file-text.png" %}',
                                 {% endif %}
                                 title: '{{ fecha }} - {{ source_id }}',
                             }), document.getElementById('marker-info-{{ source_id }}'));
