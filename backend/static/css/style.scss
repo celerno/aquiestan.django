@@ -451,6 +451,10 @@ blog.scss
     }
     .plugin-blog .blog-latest-entries article:nth-child(3n){
         max-width: 95vw;
+        max-height: unset;
+    }
+    .plugin-blog .blog-latest-entries article:nth-child(3n) header h3{
+        font-size: large;
     }
     #map{
         height: 70vh;
