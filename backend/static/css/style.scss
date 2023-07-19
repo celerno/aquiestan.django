@@ -226,6 +226,7 @@ a {
     height: 100%;
 }
 #floating-panel {
+    display:none;
     position: absolute;
     top: 55px;
     right: 7px;
@@ -242,18 +243,7 @@ a {
         border-left: none;
     }
 }
-@media screen and (max-width: 600px){
-    #map{
-        height: 70vh;
-        width: 100%;
-    }
-    .marker-info-content{
-        flex-direction: column;
-    }
-    .marker-info-content>div{
-        width: 100% !important;
-    }
-}
+
 
 /*
 blog.scss
@@ -328,6 +318,7 @@ blog.scss
         }
     }
 }
+
 .plugin-blog{
     .blog-latest-entries{
         display: flex;
@@ -440,5 +431,27 @@ blog.scss
                 }
             }
         }
+    }
+}
+@media screen and (max-width: 600px){
+    .plugin-blog{
+        .blog-latest-entries{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            max-width: unset;
+        }
+    }
+    #map{
+        height: 70vh;
+        width: 100%;
+    }
+    .marker-info-content{
+        flex-direction: column;
+    }
+    .marker-info-content>div{
+        width: 100% !important;
     }
 }
