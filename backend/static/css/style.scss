@@ -444,6 +444,10 @@ blog.scss
             max-width: unset;
         }
     }
+    .plugin-blog .blog-latest-entries article:nth-child(2n) {
+        max-width: unset;
+        padding: 1em;
+    }
     .plugin-blog .blog-latest-entries article{
         max-width: unset;
         max-height: unset;
