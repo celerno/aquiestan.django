@@ -322,10 +322,12 @@ blog.scss
 .plugin-blog{
     .blog-latest-entries{
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: row-reverse;
+        flex-wrap: nowrap;
+        justify-content: end;
+        align-items: end;
         max-width: 50vw;
+
         article{
             footer, .blog-visual, .blog-lead{
                 display: none;
