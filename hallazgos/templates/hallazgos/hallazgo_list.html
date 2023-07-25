@@ -32,7 +32,10 @@
                          </div>
                         {% endif %}
                         {% empty %}
-                        <p class="sin-imagenes">Sin im&aacute;genes.</p>
+                        <div class='carousel-item active sin-imagenes'>
+                            <h5></h5>
+                            <p>Sin im&aacute;genes.</p>
+                         </div>
                     {% endfor %}
                     <button class="carousel-control-prev" type="button" data-bs-target="#marker-info-img-{{ source_id }}" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
