@@ -442,7 +442,7 @@ blog.scss
     .blog-list{
     flex-direction: column;
     }
-    .blog-list .article{
+    .blog-list article{
         width: unset;
     }
 .blog-list article:first-of-type {
