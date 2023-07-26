@@ -441,6 +441,7 @@ blog.scss
 @media screen and (max-width: 600px){
     .blog-list{
     flex-direction: column;
+    padding: 1rem;
     }
     .blog-list article{
         width: unset;
