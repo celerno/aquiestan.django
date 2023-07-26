@@ -439,6 +439,20 @@ blog.scss
     }
 }
 @media screen and (max-width: 600px){
+    .blog-list{
+    flex-direction: column;
+    }
+    .blog-list .article{
+        width: unset;
+    }
+.blog-list article:first-of-type {
+    width: unset;
+}
+    .el-car{
+        width: auto !important;
+        height: 100% !important;
+        
+    }
     .plugin-blog{
         .blog-latest-entries{
             display: flex;
