@@ -253,8 +253,11 @@ a {
 /*
 blog.scss
 */
+.navbar-nav .nav-link.active, .navbar-nav .show>.nav-link {
+    background-color: #B79D64;
+}
 #navbarSupportedContent ul{
-    justify-content: center;
+    justify-content: end;
 }
 .blog-list{
     display: flex;
