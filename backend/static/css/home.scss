@@ -30,6 +30,26 @@ div.home{
         width: 83%;
         .home-body{
             height: 83%;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 17%;
+            .link-card{
+                width: 51%;
+                background-color: rgba(0, 0, 0, 0.8);
+                border-radius: 40px;
+                color: #FED138;
+                padding: 4em 2em;
+                h1{
+                    &::before{
+                        content: url('/static/assets/flecha.png');
+                       float: right;
+                        position: relative;
+                    }
+                }
+                p{
+                    font-size: larger;
+                }
+            }
         }
         .home-footer{
             height:17%;
