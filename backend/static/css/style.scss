@@ -254,7 +254,9 @@ a {
 blog.scss
 */
 .navbar-nav .nav-link.active, .navbar-nav .show>.nav-link {
-    background-color: #B79D64;
+    background-color: #b79d646a;
+    border-radius: 10px;
+
 }
 #navbarSupportedContent ul{
     justify-content: end;
@@ -495,4 +497,7 @@ blog.scss
     .marker-info-content>div{
         width: 100% !important;
     }
+}
+.logo-menu{
+    height: 40px;
 }
