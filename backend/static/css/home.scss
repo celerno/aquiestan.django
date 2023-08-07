@@ -1,0 +1,64 @@
+div.home{
+    height: 100%;
+    width: 100%;
+    background-image: url('/static/assets/background-default.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: row;
+    .home-left{
+        width: 17%;
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 17%;
+        ul{
+            margin-block: 0 !important;
+            padding-inline-start: 0 !important;
+            color: white;
+            li{
+                font-size: x-large;
+                text-transform: uppercase;
+                text-wrap: nowrap;
+            }
+            list-style: none;
+            display: block;
+            transform: rotate(-.25turn) translate(17%);
+        }
+    }
+    .home-center{
+        width: 83%;
+        .home-body{
+            height: 83%;
+        }
+        .home-footer{
+            height:17%;
+            ul{ 
+                list-style: none;
+                display: flex;
+                flex-direction: row;
+                li{
+                    display: block;
+                    margin: 0 1vw;
+                    i.social{
+                        display: inline-block;
+                        width: 32px;
+                        height: 32px;
+                        filter: invert(1);
+                        background-size: contain;
+                        &.ig{
+                            background-image: url('/static/assets/icons8-instagram-50.png');
+                        }    
+                        &.fb{
+                            background-image: url('/static/assets/icons8-facebook-50.png');
+                        }    
+                        &.tw{
+                            background-image: url('/static/assets/icons8-twitter-50.png');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+   

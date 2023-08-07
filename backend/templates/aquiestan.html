@@ -19,6 +19,8 @@
               rel="stylesheet"
               media="screen" />
     {% endcompress %}
+    {% block extra_css %}
+    {% endblock extra_css%}
 {% endblock base_css %}
 {% block base_js %}
    
@@ -26,11 +28,12 @@
 {% block navbar %}
     <nav class="navbar {% block navbar_options %}navbar-expand-lg navbar-dark bg-dark{% endblock navbar_options %}">
         <div class="container">
-            <div>
-                <img class="logo-menu" src="{% static 'assets/logo-aquiestan.png' %}" />
-            </div>
+
             <a class="navbar-brand" href="/">
                 {% block brand %}
+                <div>
+                    <img class="logo-menu" src="{% static 'assets/logo-aquiestan.png' %}" />
+                </div>
                 {% endblock brand %}
             </a>
             <button class="navbar-toggler"

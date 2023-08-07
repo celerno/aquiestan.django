@@ -159,6 +159,7 @@ PARLER_LANGUAGES = {
 CMS_TEMPLATES = [
      # optional templates that extend base.html, to be used with Bootstrap 5
     ('aquiestan.html', 'Aquí están base'),
+    ('home/index.html', 'Aquí están home'),
     # a minimal template to get started with
     ('minimal.html', 'Minimal template'),
 
