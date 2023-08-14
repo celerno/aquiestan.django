@@ -22,7 +22,6 @@ class Command(BaseCommand):
         with open(path.join('/data/media/',csv_file), 'r') as file_stream:
             csv_reader = csv.reader(file_stream, delimiter=',')
             next(csv_reader) # Skip header
-            next(csv_reader) # Skip header
             for row in csv_reader:
                 if row:
                     try:
