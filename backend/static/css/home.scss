@@ -53,8 +53,11 @@ div.home{
             padding-bottom: 3em;
             a{
                 text-decoration: none;
+            .link-noticias{
+                margin-left: 4vw;
+            }
             .link-card{
-                width: 51%;
+                
                 @media screen and (max-width: 600px){
                     width: unset;
                 }
