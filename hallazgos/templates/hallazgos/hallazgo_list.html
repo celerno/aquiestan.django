@@ -98,19 +98,13 @@
             </div>
             <div>
                 <div>
-                    <h6>Modalidad del hallazgo</h6>
+                    <h6>Modalidades de hallazgo</h6>
                 </div>
                 <div class="ae-filter" title="Solo aquellos hallazgos con información de ubicación se muestran en el mapa. La cantidad puede diferir debido a ello.">
                     {% for m in modalidades %}
                         <div>
                             <div class="form-check">
-                                <label class="form-check-label" for="id_check_{{ m.nombre }}_{{ forloop.counter }}">{{ m.modalidad__nombre }}</label>
-                                <input type="checkbox"
-                                       class="form-check-input"
-                                       name="modalidades"
-                                       value="{{ m.modalidad__nombre }}"
-                                       id="{{ m.modalidad__nombre }}"
-                                        />
+                                <label class="form-check-label">{{ m.modalidad__nombre }}</label>
                             </div>
                             <div class="form">
                                 <span class="ae-counter">{{ m.c }}</span>
@@ -121,7 +115,7 @@
             </div>
             <div>
                 <div>
-                    <h6>Tipo de hallazgo</h6>
+                    <h6>Tipos de hallazgo</h6>
                 </div>
                 <div class="ae-filter">
                     {% for tipo in tipos %}
@@ -129,11 +123,6 @@
                             <div class="form-check">
                                 <label class="form-check-label"
                                        for="id_check_{{ tipo.tipo }}{{ forloop.counter }}">{{ tipo.tipo }}</label>
-                                <input type="checkbox"
-                                       class="form-check-input"
-                                       name="tipos"
-                                       value="{{ tipo.tipo }}"
-                                       id="{{ tipo.tipo }}"/>
                             </div>
                             <div class="form">
                                 <span class="ae-counter">{{ tipo.c }}</span>
@@ -413,7 +402,9 @@
             // alert(modalidad.value);
             for (let i = 0; i < markers.length; i++) {
                 try{    
-                if(markers[i].colectivo === e.target.value){
+                let municipioFilter = document.querySelector('#municipios_select').selectedOptions[0].value || '0';
+
+                if(markers[i].colectivo === e.target.value && (municipioFilter == '0' || markers[i].municipio == municipioFilter )){
                     markers[i].setMap(map);
                     filtered++;
                 }
@@ -428,15 +419,18 @@
         document.querySelector('#municipios_select').addEventListener('change',
             function(e){
                 var filtered = 0;
-                if(e.target.value === '0'){
+                let colectivoFilter = document.querySelector('#colectivos-select').selectedOptions[0].value || 0;
+
+                if(e.target.value === '0' && colectivoFilter == '0'){
                     setMapOnAll(map);
                     return;
                 }
                 
                 // alert(modalidad.value);
                 for (let i = 0; i < markers.length; i++) {
-                    try{    
-                    if(markers[i].municipio === e.target.value){
+                    try{
+                    if( (e.target.value == '0' || markers[i].municipio == e.target.value) && 
+                        (colectivoFilter == '0' | colectivoFilter == markers[i].colectivo)){
                         markers[i].setMap(map);
                         filtered++;
                     }
@@ -551,7 +545,7 @@
 
                 {% endif %}
             {% endfor %}
-           var heatmap = new google.maps.visualization.HeatmapLayer({
+           /*var heatmap = new google.maps.visualization.HeatmapLayer({
                 data: latlng
             });
             heatmap.setMap(map);
@@ -570,7 +564,7 @@
             "rgba(127, 0, 63, 1)",
             "rgba(191, 0, 31, 1)",
             "rgba(255, 0, 0, 1)",
-          ];
+          ];*/
         
           //heatmap.set("gradient", heatmap.get("gradient") ? null : gradient);
         }
