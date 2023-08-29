@@ -2,7 +2,7 @@ from django.views.generic import ListView
 from django.db import models
 
 
-from .models import Hallazgo, Colectivo, Modalidad, Municipio, HallazgoMedia
+from .models import Hallazgo, Colectivo, Modalidad, Municipio, HallazgoMedia, HallazgoCSVFile
 
 class HallazgoListView(ListView): 
     model = Hallazgo
@@ -22,6 +22,7 @@ class HallazgoListView(ListView):
         context['meses'] = filter(lambda x: x, Hallazgo.all_dates_meses())
         context['c'] = self.model.objects.count()
         context['media'] = HallazgoMedia.objects.values_list('imagen', 'hallazgo__source_id')
+        context['sourcecsv'] = HallazgoCSVFile.objects.last()
         return context
 
 

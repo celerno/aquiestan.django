@@ -12,6 +12,11 @@
     .ae-left {
         display: flex;
         flex-direction: column;
+        a{
+            color: var(--color-dark);
+            text-decoration: none;
+            font-style: italic;
+        }
     }
 }
 
