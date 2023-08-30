@@ -263,20 +263,15 @@ blog.scss
 }
 .blog-list{
     display: flex;
-    background-color: $color-text-bg;
+    background:linear-gradient(#C8C1B0, #bd9e5a7e);  width:100%;
     flex-direction: row;
     flex-wrap: wrap;
     padding: 4rem;
-    article:first-of-type{
-        width: 40%;
-        margin-left: 0;
-        background-color: #B79D64;
-    }
     article{
         position: relative;
-        width: 20%;
+        width: 30%;
         border-radius: 30px;
-        background-color: $color-dark;
+        background-color: antiquewhite;
         margin:1rem;
         padding:2rem 1.5rem;
         padding-bottom: 3rem;
@@ -457,9 +452,6 @@ blog.scss
     .blog-list article{
         width: unset;
     }
-.blog-list article:first-of-type {
-    width: unset;
-}
     .el-car{
         width: auto !important;
         height: 100% !important;
