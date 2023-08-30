@@ -43,7 +43,9 @@ $color-text-bg: #F8F7EE;
 .hallazgos label {
     font-size: small;
 }
-
+article.post-item{
+    padding: 2em;
+}
 .hallazgos .ae-left {
     display: flex;
     flex-direction: column;
