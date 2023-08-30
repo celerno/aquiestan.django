@@ -65,6 +65,37 @@ article.post-item{
         font-weight: normal;
     }
 }
+figcaption{
+    font-style: normal;
+    font-size: small;
+    text-align: left;
+    color: black;
+    opacity: .6;
+}
+.h3, h3{
+    font-size: calc(1.3rem);
+}
+.post-detail > li {
+    display: none;
+}
+article {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: center;
+    align-items: center;
+}
+article > header{
+    max-width: 800px;
+}
+blockquote{
+    background: transparent;
+    border-left: 7px solid lightgoldenrodyellow;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+    font-style: italic;
+}
 .hallazgos .ae-left .ae-fields > div {
     display: flex;
     flex-direction: row;
